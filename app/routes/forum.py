@@ -95,6 +95,7 @@ def postNew():
             # the left side is the name of the field from the data table
             # the right side is the data the user entered which is held in the form object.
             subject = form.subject.data,
+            genre = form.genre.data,
             content = form.content.data,
             author = current_user.id,
             # This sets the modifydate to the current datetime.
@@ -148,6 +149,7 @@ def postEdit(postID):
     # if the form has NOT been submitted then take the data from the editPost object
     # and place it in the form object so it will be displayed to the user on the template.
     form.subject.data = editPost.subject
+    form.genre.data = editPost.subject
     form.content.data = editPost.content
 
     # Send the user to the post form that is now filled out with the current information

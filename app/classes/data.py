@@ -22,6 +22,8 @@ class User(UserMixin, Document):
     lname = StringField()
     email = EmailField()
     image = FileField()
+    role = StringField()
+    bio = StringField()
     
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -49,6 +51,8 @@ class Post(Document):
     content = StringField()
     createdate = DateTimeField(default=dt.datetime.utcnow)
     modifydate = DateTimeField()
+    genre = SelectField('Genre', choices[('Alternative', 'Alternative'),('Blues', 'Blues'), ('Classical', 'Classical'), ('Dance', 'Dance'), ('Easy Listening', 'Easy Listening'), ('Electronic', 'Electronic'), ('Folk', 'Folk'), ('Hip-Hop/Rap', 'Hip-Hop/Rap'), ('Holiday', 'Holiday'), ('Jazz', 'Jazz'), ('Metal', 'Metal'), ('Pop', 'Pop'), ('R&B/Soul', 'R&B/Soul'), ('Reggae', 'Reggae'), ('Rock', 'Rock')])
+
 
     meta = {
         'ordering': ['-createdate']

@@ -57,9 +57,12 @@ class ProfileForm(FlaskForm):
     lname = StringField('Last Name', validators=[DataRequired()]) 
     image = FileField("Image") 
     submit = SubmitField('Post')
+    role = SelectField('Role', choices[('Beginner Nerd', 'Beginner Nerd'), ('Minor Nerd', 'Minor Nerd'), ('Major Nerd', 'Major Nerd'), ('Super Nerd', 'Super Nerd')])
+    bio = StringField('Tell Us a Little Bit About Yourself', )
 
 class PostForm(FlaskForm):
     subject = StringField('Subject', validators=[DataRequired()])
+    genre = StringField('Genre', validators=[DataRequired()])
     content = TextAreaField('Post', validators=[DataRequired()])
     submit = SubmitField('Post')
 
