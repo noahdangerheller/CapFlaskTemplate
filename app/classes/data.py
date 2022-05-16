@@ -4,6 +4,7 @@
 # fields have types like IntField, StringField etc.  This uses the Mongoengine Python Library. When 
 # you interact with the data you are creating an onject that is an instance of the class.
 
+from distutils.command.upload import upload
 from app import app
 from flask import flash
 from flask_login import UserMixin
@@ -13,6 +14,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import datetime as dt
 import jwt
 from time import time
+import wave
+
+
 #from bson.objectid import ObjectId
 
 class User(UserMixin, Document):
@@ -51,8 +55,8 @@ class Post(Document):
     content = StringField()
     createdate = DateTimeField(default=dt.datetime.utcnow)
     modifydate = DateTimeField()
-    genre = SelectField('Genre', choices[('Alternative', 'Alternative'),('Blues', 'Blues'), ('Classical', 'Classical'), ('Dance', 'Dance'), ('Easy Listening', 'Easy Listening'), ('Electronic', 'Electronic'), ('Folk', 'Folk'), ('Hip-Hop/Rap', 'Hip-Hop/Rap'), ('Holiday', 'Holiday'), ('Jazz', 'Jazz'), ('Metal', 'Metal'), ('Pop', 'Pop'), ('R&B/Soul', 'R&B/Soul'), ('Reggae', 'Reggae'), ('Rock', 'Rock')])
-
+    genre = StringField()
+    song = FileField()
 
     meta = {
         'ordering': ['-createdate']

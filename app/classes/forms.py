@@ -2,6 +2,9 @@
 # and users fill them out.  Each form is an instance of a class. Forms are managed by the 
 # Flask-WTForms library.
 
+from concurrent.futures import process
+from distutils.command.upload import upload
+from email.mime import audio
 from flask.app import Flask
 from flask import flash
 from flask_wtf import FlaskForm
@@ -57,12 +60,16 @@ class ProfileForm(FlaskForm):
     lname = StringField('Last Name', validators=[DataRequired()]) 
     image = FileField("Image") 
     submit = SubmitField('Post')
-    role = SelectField('Role', choices[('Beginner Nerd', 'Beginner Nerd'), ('Minor Nerd', 'Minor Nerd'), ('Major Nerd', 'Major Nerd'), ('Super Nerd', 'Super Nerd')])
+    role = SelectField('Role', choices=[('Beginner Nerd', 'Beginner Nerd'), ('Minor Nerd', 'Minor Nerd'), ('Major Nerd', 'Major Nerd'), ('Super Nerd', 'Super Nerd')])
     bio = StringField('Tell Us a Little Bit About Yourself', )
 
 class PostForm(FlaskForm):
     subject = StringField('Subject', validators=[DataRequired()])
-    genre = StringField('Genre', validators=[DataRequired()])
+    genre = SelectField('Genre', validators=[DataRequired()])
+    genre = SelectField('Genre', choices=[('Alternative', 'Alternative'),('Blues', 'Blues'), ('Classical', 'Classical'), ('Dance', 'Dance'), ('Easy Listening', 'Easy Listening'), ('Electronic', 'Electronic'), ('Folk', 'Folk'), ('Hip-Hop/Rap', 'Hip-Hop/Rap'), ('Holiday', 'Holiday'), ('Jazz', 'Jazz'), ('Metal', 'Metal'), ('Pop', 'Pop'), ('R&B/Soul', 'R&B/Soul'), ('Reggae', 'Reggae'), ('Rock', 'Rock')])
+    song = FileField("Upload Your Song Here")
+    
+
     content = TextAreaField('Post', validators=[DataRequired()])
     submit = SubmitField('Post')
 

@@ -10,6 +10,7 @@ from app.classes.data import Post, Comment
 from app.classes.forms import PostForm, CommentForm
 from flask_login import login_required
 import datetime as dt
+import wave
 
 # This is the route to list all posts
 @app.route('/post/list')
@@ -23,6 +24,8 @@ def postList():
     # to the template as a variable named posts.  The template uses a for loop to display
     # each post.
     return render_template('posts.html',posts=posts)
+
+# create route like the above but with tags
 
 # This route will get one specific post and any comments associated with that post.  
 # The postID is a variable that must be passsed as a parameter to the function and 
@@ -101,6 +104,10 @@ def postNew():
             # This sets the modifydate to the current datetime.
             modifydate = dt.datetime.utcnow
         )
+        if form.song.data:
+            newPost.song.put(form.song.data, content_type='audio/mpeg')
+
+
         # This is a method that saves the data to the mongoDB database.
         newPost.save()
 
@@ -140,7 +147,9 @@ def postEdit(postID):
         # update() is mongoengine method for updating an existing document with new data.
         editPost.update(
             subject = form.subject.data,
+            genre = form.subject.data,
             content = form.content.data,
+            song = form.song.data,
             modifydate = dt.datetime.utcnow
         )
         # After updating the document, send the user to the updated post using a redirect.
@@ -151,6 +160,7 @@ def postEdit(postID):
     form.subject.data = editPost.subject
     form.genre.data = editPost.subject
     form.content.data = editPost.content
+    form.song.data = editPost.song
 
     # Send the user to the post form that is now filled out with the current information
     # from the form.
